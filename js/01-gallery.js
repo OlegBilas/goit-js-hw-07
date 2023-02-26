@@ -9,9 +9,14 @@ let globalInstance;
 function onClickOpenBigImage(event) {
   event.preventDefault();
   if (event.target.nodeName === 'IMG') {
-    const minificatedImageURL = event.target.getAttribute('src');
-    event.target.setAttribute('src', event.target.dataset.source);
-    const instance = basicLightbox.create(`${event.target.outerHTML}`, {
+    const minificatedImageURL = event.target.src;
+    const fullImageURL = event.target.dataset.source;
+    const textInnerHTML = event.target.outerHTML.replace(
+      `src="${minificatedImageURL}"`,
+      `src="${fullImageURL}"`
+    );
+
+    const instance = basicLightbox.create(textInnerHTML, {
       onShow: function () {
         document.addEventListener('keydown', setKeyEscapeListener);
       },
@@ -21,11 +26,11 @@ function onClickOpenBigImage(event) {
     });
 
     instance.show();
-    event.target.setAttribute('src', minificatedImageURL);
-  }
-  function setKeyEscapeListener(e, instance) {
-    if (e.code === 'Escape') {
-      instance.close();
+
+    function setKeyEscapeListener(e) {
+      if (e.code === 'Escape') {
+        instance.close();
+      }
     }
   }
 }
