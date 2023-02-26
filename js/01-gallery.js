@@ -19,9 +19,14 @@ function onClickOpenBigImage(event) {
         document.removeEventListener('keydown', setKeyEscapeListener);
       },
     });
-    globalInstance = instance;
+
     instance.show();
     event.target.setAttribute('src', minificatedImageURL);
+  }
+  function setKeyEscapeListener(e, instance) {
+    if (e.code === 'Escape') {
+      instance.close();
+    }
   }
 }
 
@@ -40,10 +45,4 @@ function createGalleryItems(galleryItems) {
             </div>`;
     })
     .join('');
-}
-
-function setKeyEscapeListener(e, globalInstance) {
-  if (e.code === 'Escape') {
-    globalInstance.close();
-  }
 }
