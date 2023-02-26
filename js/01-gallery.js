@@ -5,7 +5,6 @@ galleryRef.innerHTML = createGalleryItems(galleryItems);
 
 galleryRef.addEventListener('click', onClickOpenBigImage);
 
-let globalInstance;
 function onClickOpenBigImage(event) {
   event.preventDefault();
   if (event.target.nodeName === 'IMG') {
